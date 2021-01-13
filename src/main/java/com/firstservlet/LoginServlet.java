@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
         urlPatterns = {"/LoginServlet"},
         initParams = {
                 @WebInitParam(name = "user", value = "Vijay"),
-                @WebInitParam(name = "password", value = "Vijay123")
+                @WebInitParam(name = "password", value = "Vijay@123")
         }
 )
 public class LoginServlet extends HttpServlet {
@@ -27,15 +27,21 @@ public class LoginServlet extends HttpServlet {
         String userID = getServletConfig().getInitParameter("user");
         String password = getServletConfig().getInitParameter("password");
         String nameRegex = "^[A-Z]{1}[a-zA-Z\\s]{2,}$";
+        String passwordRegex = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#&$]).{8,}$";
 
-        if (userID.equals(user) && password.equals(pwd)) {
-            req.setAttribute("user", user);
-            req.getRequestDispatcher("LoginSuccess.jsp").forward(req, resp);
-        } else if (!Pattern.matches(nameRegex, user)) {
+        if (!Pattern.matches(nameRegex, user)) {
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.html");
             PrintWriter out = resp.getWriter();
             out.println("<font color=red>Please enter username as First letter capital and minimum 3 characters.</font>");
             rd.include(req, resp);
+        } else if (!Pattern.matches(passwordRegex, pwd)) {
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.html");
+            PrintWriter out = resp.getWriter();
+            out.println("<font color=red>Please enter Strong Password.</font>");
+            rd.include(req, resp);
+        } else if (userID.equals(user) && password.equals(pwd)) {
+            req.setAttribute("user", user);
+            req.getRequestDispatcher("LoginSuccess.jsp").forward(req, resp);
         }
         else {
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.html");
