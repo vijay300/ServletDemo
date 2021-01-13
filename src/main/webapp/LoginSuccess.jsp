@@ -2,7 +2,7 @@
   Created by IntelliJ IDEA.
   User: gnvij
   Date: 1/13/2021
-  Time: 11:57 AM
+  Time: 3:24 PM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -13,7 +13,7 @@
     <title>Login Success Page</title>
 </head>
 <body>
-    <h3>Hi <%=request.getAttribute("user")%>, Login successful.</h3>
-    <a href="login.html">Login Page</a>
+<h3>Hi <%=request.getAttribute("user")%>, Login successful.</h3>
+<a href="login.html">Login Page</a>
 </body>
 </html>
